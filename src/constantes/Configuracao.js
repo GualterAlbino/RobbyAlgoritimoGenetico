@@ -4,10 +4,10 @@ export const cCONFIG = {
   TAMANHO_POPULACAO: 1000,
 
   // Cada geração representa uma geração de indivíduos, onde ocorre seleção, crossover, mutação e avaliação de fitness.
-  QTD_GERACOES: 100,
+  QTD_GERACOES: 1000,
 
   // A probabilidade de dois indivíduos selecionados para reprodução realizarem o crossover, gerando descendentes.
-  TAXA_CROSSOVER: 0.05,
+  TAXA_CROSSOVER: 0.01,
 
   //A probabilidade de cada gene em um indivíduo sofrer mutação durante a reprodução.
   TAXA_MUTACAO: 0.1

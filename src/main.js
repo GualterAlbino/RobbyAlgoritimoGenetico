@@ -38,27 +38,41 @@ function ExecutarAlgoritimoGenetico() {
       `Geração ${geracao}: melhor pontuação = ${melhorFitnessDaGeracao}`
     )
 
-    // Seleção
-    const populacaoSelecionada = SelecionarPorTorneio(populacao, fitness)
+    // Seleção com elitismo
+    const eliteSize = Math.floor(cCONFIG.TAMANHO_POPULACAO * 0.1)
+    const sortedPopulation = populacao
+      .map((individuo, index) => ({ individuo, fitness: fitness[index] }))
+      .sort((a, b) => b.fitness - a.fitness)
+    const elite = sortedPopulation
+      .slice(0, eliteSize)
+      .map((item) => item.individuo)
 
-    // const populacaoSelecionada = SelecionarPorSUS(
-    //   populacao,
-    //   fitness
-    // )
+    const populacaoSelecionada = SelecionarPorSUS(populacao, fitness).slice(
+      eliteSize
+    )
 
-    // Crossover e Mutação
+    // Aplicar crossover
     const novaPopulacao = []
-    for (let j = 0; j < cCONFIG.TAMANHO_POPULACAO; j += 2) {
-      const pais = [populacaoSelecionada[j], populacaoSelecionada[j + 1]]
-      const filhos = Crossover(pais[0], pais[1])
-      const mutatedChildren = [
-        Mutar(filhos[0], cCONFIG.TAXA_MUTACAO),
-        Mutar(filhos[1], cCONFIG.TAXA_MUTACAO)
-      ]
-      novaPopulacao.push(...mutatedChildren)
+    while (novaPopulacao.length < cCONFIG.TAMANHO_POPULACAO - eliteSize) {
+      const pai1 =
+        populacaoSelecionada[
+          Math.floor(Math.random() * populacaoSelecionada.length)
+        ]
+      const pai2 =
+        populacaoSelecionada[
+          Math.floor(Math.random() * populacaoSelecionada.length)
+        ]
+      const [filho1, filho2] = Crossover(pai1, pai2)
+      novaPopulacao.push(filho1, filho2)
     }
 
-    populacao = novaPopulacao
+    // Aplicar mutação
+    const populacaoMutada = novaPopulacao.map((individuo) =>
+      Mutar(individuo, cCONFIG.TAXA_MUTACAO)
+    )
+
+    // Inserir elite na nova população
+    populacao = elite.concat(populacaoMutada)
     geracao++
   }
 
