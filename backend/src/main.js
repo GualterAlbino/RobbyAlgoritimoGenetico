@@ -6,10 +6,23 @@ import {
   AvaliarFitness,
   SelecionarPorTorneio,
   SelecionarPorSUS
-} from './robby.js'
+} from './services/robby.js'
 
 // Função principal do algoritmo genético
-function ExecutarAlgoritimoGenetico() {
+export function executarAlgoritimoGenetico(
+  pTaxaMutacao,
+  pTaxaCrossover,
+  pTamanhoPopulacao,
+  pQtdGeracoes
+) {
+  if (pTaxaMutacao) cCONFIG.TAXA_MUTACAO = pTaxaMutacao
+  if (pQtdGeracoes) cCONFIG.QTD_GERACOES = pQtdGeracoes
+  if (pTaxaCrossover) cCONFIG.TAXA_CROSSOVER = pTaxaCrossover
+  if (pTamanhoPopulacao) cCONFIG.TAMANHO_POPULACAO = pTamanhoPopulacao
+
+  let mediaPontuacao = 0
+  const melhoresPontuacoes = []
+
   let geracao = 0
   let melhorIndividuo = null
   let melhorFitness = -Infinity
@@ -32,6 +45,7 @@ function ExecutarAlgoritimoGenetico() {
 
     // Encontrar a melhor pontuação desta geração
     melhorFitnessDaGeracao = Math.max(...fitness)
+    melhoresPontuacoes.push(melhorFitnessDaGeracao)
 
     // Mostrar a melhor pontuação da geração atual
     console.log(
@@ -76,10 +90,14 @@ function ExecutarAlgoritimoGenetico() {
     geracao++
   }
 
-  return { melhorIndividuo, melhorFitness }
+  mediaPontuacao =
+    melhoresPontuacoes.reduce((a, b) => a + b) / melhoresPontuacoes.length
+  return { melhorIndividuo, melhoresPontuacoes, mediaPontuacao }
 }
 
 // Executar o algoritmo genético com a configuração fornecida
-const { melhorIndividuo, melhorFitness } = ExecutarAlgoritimoGenetico()
-console.log('Melhor sequência encontrada:', melhorIndividuo)
-console.log('Fitness da melhor sequência:', melhorFitness)
+// const { melhorIndividuo, melhorFitness, mediaPontuacao } =
+//   ExecutarAlgoritimoGenetico()
+// console.log('Média de pontuação:', mediaPontuacao)
+// console.log('Melhor sequência encontrada:', melhorIndividuo)
+// console.log('Fitness pontuação obtida:', melhorFitness)

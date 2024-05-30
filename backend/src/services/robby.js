@@ -1,9 +1,9 @@
-import { cMAPA } from './constantes/Mapa.js'
-import { cLOCAL } from './constantes/Local.js'
-import { cCONFIG } from './constantes/Configuracao.js'
-import { cPONTUACAO } from './constantes/Pontuacao.js'
-import { cMOVIMENTOS } from './constantes/Movimentos.js'
-import { GerarMovimentoAleatorio } from './utils/Utils.js'
+import { cMAPA } from '../constantes/Mapa.js'
+import { cLOCAL } from '../constantes/Local.js'
+import { cCONFIG } from '../constantes/Configuracao.js'
+import { cPONTUACAO } from '../constantes/Pontuacao.js'
+import { cMOVIMENTOS } from '../constantes/Movimentos.js'
+import { GerarMovimentoAleatorio } from '../utils/Utils.js'
 
 /**
  * Função para criar um indivíduo (sequência de movimentos)
