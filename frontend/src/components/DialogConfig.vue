@@ -105,7 +105,7 @@ export default {
     config: {
       type: Object,
       default: () => ({
-        taxaMutacao: 0.1,
+        taxaMutacao: 0.01,
         taxaCrossover: 0.01,
         tamanhoPopulacao: 100,
         quantidadeGeracoes: 100
@@ -117,7 +117,7 @@ export default {
     dialog: false,
     isFormValido: false,
     configForm: {
-      taxaMutacao: 0.1,
+      taxaMutacao: 0.01,
       taxaCrossover: 0.01,
       tamanhoPopulacao: 100,
       quantidadeGeracoes: 100

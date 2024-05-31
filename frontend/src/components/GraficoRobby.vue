@@ -85,7 +85,7 @@ export default {
 
       //Configurações
       config: {
-        taxaMutacao: 0.1,
+        taxaMutacao: 0.01,
         taxaCrossover: 0.01,
         tamanhoPopulacao: 100,
         quantidadeGeracoes: 100
